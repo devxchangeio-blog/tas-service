@@ -1,0 +1,51 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.6.BUILD-SNAPSHOT'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+configurations.all {
+  resolutionStrategy {
+	    force 'ch.qos.logback:logback-classic:1.1.6'
+	    force 'ch.qos.logback:logback-core:1.1.6'
+    }
+}
+
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.2.RELEASE'
+	compile("javax.servlet:javax.servlet-api:3.1.0")
+	compile group: 'com.github.danielwegener', name: 'logback-kafka-appender', version: '0.1.0'
+	compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.6'
+	compile group: 'ch.qos.logback', name: 'logback-core', version: '1.1.6'
+	compile group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '4.8'   
+	
+	compile group: 'commons-io', name: 'commons-io', version: '2.4'
+    compile("com.google.code.gson:gson:2.3.1")
+    compile("com.jayway.jsonpath:json-path:2.0.0")
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
